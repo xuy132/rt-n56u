@@ -1,8 +1,8 @@
-/* NETGEAR-R6800 */
+/* NETGEAR-BZV */
 
-#define BOARD_PID		"R6800"
-#define BOARD_NAME		"R6800"
-#define BOARD_DESC		"NETGEAR R6800 Wireless Router"
+#define BOARD_PID		"NETGEAR-BZV"
+#define BOARD_NAME		"NETGEAR-BZV"
+#define BOARD_DESC		"NETGEAR Dual MT7615 Wireless Router"
 #define BOARD_VENDOR_NAME	"NETGEAR Co., Ltd."
 #define BOARD_VENDOR_URL	"http://www.netgear.com/"
 #define BOARD_MODEL_URL		"http://www.netgear.com/"

@@ -4,47 +4,17 @@
 * 默认wifi密码:1234567890
 * 集成/取消新增插件请修改此文件: trunk/build_firmware_modify
 
-- 已适配除官方适配外的以下机型
->- MI-R3P(感谢群里emmmm适配,可能led控制有点问题,其它功能正常)
->- 京东云路由(文件来自Lintel) 编译代码: JDC-1
->- 歌华链(感谢群里Heaven适配与测试）编译代码: GHL
->- NEWIFI-D1
->- B70(感谢Untitled提供荒野无灯的适配文件)
->- JCG-AC856M(感谢群里的旅途中的我适配和测试,gpio值还未完全适配，但不影响使用)
->- JCG-AC836M(感谢群里的碧霄客修改和测试)
->- YK-L1(L1、L1C、L1W通刷)
->- PSG712
->- PSG1208
->- PSG1218
->- 5K-W20 (USB)
->- OYE-001 (USB)
->- NEWIFI-MINI (USB)
->- MI-MINI (USB)
->- MI-3 (USB)
->- MI-R3G (USB)
->- HC5661A
->- HC5761A (USB)
->- HC5861B
->- 360P2 (USB)
->- MI-NANO
->- MZ-R13
->- MZ-R13P
->- RT-AC1200GU (USB)
->- XY-C1 (USB)
->- WR1200JS (USB)
->- NEWIFI3 (USB)
->- B70 (USB)
->- A3004NS (USB)
->- K2P
->- K2P-USB (USB)
->- JCG-836PRO (USB)
->- JCG-AC860M (USB)
->- DIR-882 (USB)
->- DIR-878
->- MR2600 (USB)
->- WDR7300
->- RM2100
->- R2100 
+- 网件的闪存布局要求factory在ubi/firmware之后, 因此额外加入了NETGEAR_LAYOUT、FACTORY_OFFSET及RWFS_OFFSET选项。
+>- NETGEAR_LAYOUT表明布局为config及factory在firmware之后。
+>- FACTORY_OFFSET直接指定factory的起始位置, 跳过reserved0分区。
+>- RWFS_OFFSET直接指定RWFS的起始位置, 跳过reserved1分区。
+
+目前无法直接创建reserved0与reserved1分区, 否则开机时会提示factory尺寸溢出。
+
+- 已适配除官方适配及chongshengB分支外的网件套娃机型: 
+>- R6220, MT7603+MT7612
+>- HWID为CHJ的机型(NETGEAR-CHJ), MT7603+MT7615: R6260/R6350/R6850
+>- HWID为BZV的机型(NETGEAR-BZV), MT7615+MT7615: R6700v2/R6800/R6900v2/R7200/R7450/AC2100/AC2400
 
 ***
 
@@ -69,7 +39,7 @@ sudo yum update
 sudo yum install ncurses-* flex byacc bison zlib-* gmp-* mpfr-* gettext \
 libtool* libmpc-* gettext-* nano fakeroot
 sudo yum groupinstall "Development Tools"
-# CentOS 8不能直接通过yum安装texinfo，help2man，python-docutils。请去官网下载发行的安装包编译安装
+# CentOS 8不能直接通过yum安装texinfo, help2man, python-docutils。请去官网下载发行的安装包编译安装
 # 以texinfo为例
 # cd /usr/local/src
 # sudo wget http://ftp.gnu.org/gnu/texinfo/texinfo-6.7.tar.gz
@@ -95,7 +65,7 @@ cd /opt/rt-n56u/toolchain-mipsel
 # （推荐）使用脚本下载预编译的工具链：
 sh dl_toolchain.sh
 
-# 或者，也可以从源码编译工具链，这需要一些时间：
+# 或者, 也可以从源码编译工具链, 这需要一些时间：
 # Manjaro/ArchLinux 用户请使用gcc-8
 # sudo pacman -S gcc8
 # sudo ln -sf /usr/bin/gcc-8 /usr/local/bin/gcc
@@ -113,7 +83,7 @@ nano /opt/rt-n56u/trunk/configs/templates/PSG1218.config
 cd /opt/rt-n56u/trunk
 ./clear_tree
 fakeroot ./build_firmware_modify PSG1218
-# 脚本第一个参数为路由型号，在trunk/configs/templates/中
+# 脚本第一个参数为路由型号, 在trunk/configs/templates/中
 # 编译好的固件在trunk/images里
 ```
 
